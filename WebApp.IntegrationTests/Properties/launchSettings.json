@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WebApp.IntegrationTests": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

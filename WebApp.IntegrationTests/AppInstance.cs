@@ -1,17 +1,32 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Npgsql;
+using Respawn;
+using System.Data.Common;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
+using Testcontainers.PostgreSql;
+using WebApp.Data;
 
 namespace WebApp.IntegrationTests;
 
-public class AppInstance : WebApplicationFactory<Program>
+public class AppInstance : WebApplicationFactory<Program>, IAsyncLifetime
 {
+    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
+        .WithImage("postgres:latest")
+        .Build();
+
+    public HttpClient HttpClient { get; private set; } = default!;
+    private DbConnection _dbConnection = default!;
+    private Respawner _respawner = default!;
+
     public WebApplicationFactory<Program> AuthenticatedInstance(params Claim[] claimSeed)
     {
         return WithWebHostBuilder(builder =>
@@ -22,6 +37,71 @@ public class AppInstance : WebApplicationFactory<Program>
                 services.AddSingleton<MockClaimSeed>(_ => new(claimSeed));
             });
         });
+    }
+
+    public async Task ResetDatabaseAsync()
+    {
+        await _respawner.ResetAsync(_dbConnection);
+    }
+
+    public async Task InitializeAsync()
+    {
+        await _dbContainer.StartAsync();
+        _dbConnection = new NpgsqlConnection(_dbContainer.GetConnectionString());
+        HttpClient = CreateClient(new()
+        {
+            AllowAutoRedirect = false
+        });
+        await InitializeRespawner();
+    }
+
+    private async Task InitializeRespawner()
+    {
+        await _dbConnection.OpenAsync();
+        _respawner = await Respawner.CreateAsync(_dbConnection, new RespawnerOptions
+        {
+            DbAdapter = DbAdapter.Postgres,
+            SchemasToInclude = ["application"]
+        });
+    }
+
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.ConfigureServices(services =>
+        {
+            var dbContextDescriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbContextOptions<ApplicationDbContext>));
+
+            services.Remove(dbContextDescriptor);
+
+            var dbConnectionDescriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbConnection));
+
+            services.Remove(dbConnectionDescriptor);
+
+            services.AddSingleton<DbConnection>(container =>
+            {
+                var connection = new NpgsqlConnection(_dbContainer.GetConnectionString());
+                connection.Open();
+
+                return connection;
+            });
+
+            services.AddDbContext<ApplicationDbContext>((container, options) =>
+            {
+                var connection = container.GetRequiredService<DbConnection>();
+                options.UseNpgsql(connection);
+            });
+        });
+
+        builder.UseEnvironment("Development");
+    }
+
+    public new async Task DisposeAsync()
+    {
+        await _dbContainer.StopAsync();
     }
 
     public class MockSchemeProvider : AuthenticationSchemeProvider

@@ -5,3 +5,5 @@ reportgenerator -reports:"C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\C#\Te
 
 dotnet tool install -g dotnet-stryker
 dotnet stryker
+
+dotnet publish --os linux --arch x64 /t:PublishContainer -c Release

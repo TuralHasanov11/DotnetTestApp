@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  webapp:
+    image: ${DOCKER_REGISTRY-}webapp
+    container_name: testingapp
+    build:
+      context: .
+      dockerfile: WebApp/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+
+  webapp.database:
+    image: postgres:latest
+    container_name: testingapp.database
+    environment:
+      - POSTGRES_DB=dotnet_web_app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "./.containers/testingapp-db:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
+
+  webapp.cache:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WwxjY0/tBbcIB5wL3YyvXQfYi0c80KeweAvkZ6ZBelZJCPKPCaK7gfH9+IqGV3XWpupy/HtCj/rqftthow1YEw==",
+  "dgSpecHash": "AEgyx8TqZqSJ8/bOQtzi+m0tN1SPv7qH0DcNJqCt4mmbVJQZxDMyJcwjSQKVYQxQZ6SYsUDCPRyDuXypYX0kRg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Tural Hasan\\Desktop\\My Projects\\Roadmap\\TestingApp\\TestingAppSolution\\WebApp.LoadTests\\WebApp.LoadTests.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\Tural Hasan\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Tural Hasan\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.6.0\\microsoft.testplatform.objectmodel.17.6.0.nupkg.sha512",
     "C:\\Users\\Tural Hasan\\.nuget\\packages\\microsoft.testplatform.testhost\\17.6.0\\microsoft.testplatform.testhost.17.6.0.nupkg.sha512",
+    "C:\\Users\\Tural Hasan\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\microsoft.visualstudio.azure.containers.tools.targets.1.19.5.nupkg.sha512",
     "C:\\Users\\Tural Hasan\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\Tural Hasan\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\Tural Hasan\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",

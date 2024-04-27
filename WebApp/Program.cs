@@ -140,6 +140,11 @@ builder.Services.AddOptions<DatabaseOptions>()
 
 builder.Services.AddDbContext<ApplicationDbContext>();
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Cache");
+});
+
 var app = builder.Build();
 
 
@@ -147,6 +152,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();

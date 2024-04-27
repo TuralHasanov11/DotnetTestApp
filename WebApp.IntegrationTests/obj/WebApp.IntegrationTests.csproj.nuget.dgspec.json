@@ -56,6 +56,22 @@
               "target": "Package",
               "version": "[17.9.0, )"
             },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.20.1, )"
+            },
+            "Respawn": {
+              "target": "Package",
+              "version": "[6.2.1, )"
+            },
+            "Testcontainers": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
+            "Testcontainers.PostgreSql": {
+              "target": "Package",
+              "version": "[3.8.0, )"
+            },
             "Verify.Xunit": {
               "target": "Package",
               "version": "[24.1.0, )"
@@ -160,6 +176,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.4, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.19.5, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",

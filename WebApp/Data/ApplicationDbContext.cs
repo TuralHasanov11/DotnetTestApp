@@ -23,7 +23,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql($"Host=localhost;Username=postgres;Password=hidraC137;Database=dotnet_web_app",
+        optionsBuilder.UseNpgsql($"Host=testingapp.database;Username=postgres;Password=hidraC137;Port=5432;Database=dotnet_web_app;Include Error Detail=true",
             b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
     }
 

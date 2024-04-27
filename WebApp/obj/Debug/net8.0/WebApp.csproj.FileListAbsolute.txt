@@ -247,3 +247,6 @@ C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\TestingApp\TestingAppSolution\W
 C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\TestingApp\TestingAppSolution\WebApp\obj\Debug\net8.0\WebApp.pdb
 C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\TestingApp\TestingAppSolution\WebApp\obj\Debug\net8.0\WebApp.genruntimeconfig.cache
 C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\TestingApp\TestingAppSolution\WebApp\obj\Debug\net8.0\ref\WebApp.dll
+C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\TestingApp\TestingAppSolution\WebApp\bin\Debug\net8.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\TestingApp\TestingAppSolution\WebApp\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\TestingApp\TestingAppSolution\WebApp\bin\Debug\net8.0\StackExchange.Redis.dll
