@@ -1,0 +1,7 @@
+dotnet test --collect:"XPLat Code Coverage"
+
+dotnet tool install -g dotnet-reportgenerator-globaltool
+reportgenerator -reports:"C:\Users\Tural Hasan\Desktop\My Projects\Roadmap\C#\TestingApp\TestingAppSolution\WebApp.IntegrationTests\TestResults\0debd3a4-de17-46dd-a229-2b74f228917c\coverage.cobertura.xml" -targetdir:"coverageresults" -reporttypes:Html
+
+dotnet tool install -g dotnet-stryker
+dotnet stryker
