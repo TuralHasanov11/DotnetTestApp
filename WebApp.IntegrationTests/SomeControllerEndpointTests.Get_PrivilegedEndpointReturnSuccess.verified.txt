@@ -20,7 +20,7 @@
       Method: {
         Method: GET
       },
-      RequestUri: http://localhost/privileged,
+      RequestUri: http://localhost/api/Some/privileged,
       Headers: []
     },
     IsSuccessStatusCode: true
