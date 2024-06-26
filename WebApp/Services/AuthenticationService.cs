@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using WebApp.Contracts.Responses;
@@ -19,7 +18,6 @@ public sealed class AuthenticationService : IAuthenticationService
     private readonly IJwtProvider _jwtProvider;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ApplicationDbContext _dbContext;
-
 
     public AuthenticationService(
         UserManager<ApplicationUser> userManager,
@@ -78,7 +76,7 @@ public sealed class AuthenticationService : IAuthenticationService
     {
         var existingUser = await _userManager.FindByEmailAsync(email);
 
-        if(existingUser is not null)
+        if (existingUser is not null)
         {
             return Result.Failure<RegistrationResponse>(new Error("User.AlreadyExists", "User already exists", ErrorType.Conflict));
         }
@@ -118,7 +116,7 @@ public sealed class AuthenticationService : IAuthenticationService
     {
         var validatedToken = _jwtProvider.GetPrincipalFromToken(token);
 
-        if(validatedToken is null)
+        if (validatedToken is null)
         {
             return Result.Failure<TokenResponse>(new Error("User.InvalidToken", "Invalid Token", ErrorType.Validation));
         }
@@ -128,19 +126,19 @@ public sealed class AuthenticationService : IAuthenticationService
         var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             .AddSeconds(expiryDateUnix);
 
-        if(expiryDateTimeUtc > DateTime.UtcNow)
+        if (expiryDateTimeUtc > DateTime.UtcNow)
         {
             return Result.Failure<TokenResponse>(new Error("User.TokenNotExpired", "Token has not expired", ErrorType.Validation));
         }
 
         var storedRefreshToken = await _dbContext.RefreshTokens.FirstOrDefaultAsync(x => x.Token == refreshToken);
 
-        if(storedRefreshToken is null)
+        if (storedRefreshToken is null)
         {
             return Result.Failure<TokenResponse>(new Error("User.TokenNotFound", "Token has not been found", ErrorType.NotFound));
         }
 
-        if(DateTime.UtcNow > storedRefreshToken.ExpiryDate)
+        if (DateTime.UtcNow > storedRefreshToken.ExpiryDate)
         {
             return Result.Failure<TokenResponse>(new Error("User.TokenExpired", "Token has expired", ErrorType.Validation));
         }
@@ -177,6 +175,4 @@ public sealed class AuthenticationService : IAuthenticationService
 
         return Result.Success(tokenResult);
     }
-
-
 }
